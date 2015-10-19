@@ -14,7 +14,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
         ## NOTE: Do not round the result!
         i <- 1L
         polvec <- as.numeric()
-        polvec <- while(i <= length(id)) {
+        while(i <= length(id)) {
                 if(nchar(id[i]) == 1) {
                         id[i] <- paste0("00", id[i])
                 } else if (nchar(id[i]) == 2) {
@@ -22,9 +22,8 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
                 }
                 filename <- paste0(id[i], ".csv")
                 monitor <- read.csv(paste(directory, filename, sep = "/"))
-                polvec <- c(polvec,monitor$pollutant)
+                polvec <- c(polvec,monitor[[pollutant]])
                 i <- i + 1
         }
-#        retmean <- mean(polvec, na.rm = TRUE)
-        polvec
+        mean(polvec, na.rm = TRUE)
 }
